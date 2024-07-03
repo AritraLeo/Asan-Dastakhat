@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client';
 import passport from 'passport';
 
 import authRoutes from './routes/auth';
-// import {uploadRoutes} from './routes/upload';
+import uploadRoutes from './routes/upload';
 // import signRoutes from './routes/sign';
 
 dotenv.config();
@@ -25,7 +25,7 @@ app.use(passport.session());
 
 // Use routes
 app.use('/auth', authRoutes);
-// app.use('/upload', uploadRoutes);
+app.use('/upload', uploadRoutes);
 // app.use('/sign', signRoutes);
 
 
@@ -44,7 +44,7 @@ passport.deserializeUser((obj: any, done) => {
 
 
 // Middleware to check if user is authenticated
-function isAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
+export function isAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
     if (req.user) {
         return next();
     }
